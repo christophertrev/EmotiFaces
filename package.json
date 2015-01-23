@@ -1,0 +1,19 @@
+{
+  "name": "EmotiFaces",
+  "version": "1.0.0",
+  "description": "API endpoint that gives a random photo for a subset of emotions.",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/christophertrev/EmotiFaces.git"
+  },
+  "author": "Christopher Treviño",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/christophertrev/EmotiFaces/issues"
+  },
+  "homepage": "https://github.com/christophertrev/EmotiFaces"
+}
