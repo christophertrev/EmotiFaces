@@ -6,7 +6,7 @@ var mocha = require('gulp-mocha');
 
 var paths = {
   scripts: [
-  './server/*.js',
+  './server/**/*.js',
   './gulpfile.js'
   ],
   server : {
