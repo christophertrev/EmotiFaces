@@ -34,6 +34,12 @@ router.get('/:emotion',function (req,res){
   });
 });
 
+
+router.get('/',function (req,res){
+  res.json(Object.keys(emotionDirs))
+  // res.send("oiasmdfasopidfa")
+})
+
 router.post('/:emotion',function (req,res){
   var pathDirName = emotionDirs[req.params.emotion];
   var form = new multiparty.Form();
@@ -56,13 +62,13 @@ router.post('/:emotion',function (req,res){
     fs.renameSync(tmp_path, target_path, function(err) {
         if(err) console.error(err.stack);
     });
-
-
   })
 
   form.parse(req);
 
 })
+
+
 
 
 
