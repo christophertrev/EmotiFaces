@@ -1,15 +1,16 @@
 var express = require('express');
 var app = express();
+var emotionRoutes = require('./routes/emotionRoutes');
+var morgan = require('morgan');
 
 
+app.use(morgan('dev'));
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+app.use('/emotion', emotionRoutes);
 
 app.get('*', function (req, res){
-  res.status(404).send('You messed up buddy')
-})
+  res.status(404).send('You messed up buddy');
+});
 
 var server = app.listen(3000, function () {
 
