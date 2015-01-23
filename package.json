@@ -19,5 +19,10 @@
   "homepage": "https://github.com/christophertrev/EmotiFaces",
   "dependencies": {
     "express": "^4.11.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-jshint": "^1.9.0",
+    "jshint-stylish": "^1.0.0"
   }
 }
