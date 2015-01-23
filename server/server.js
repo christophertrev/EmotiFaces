@@ -4,6 +4,9 @@ var emotionRoutes = require('./routes/emotionRoutes');
 var morgan = require('morgan');
 
 
+app.set('port', (process.env.PORT || 3000));
+
+
 app.use(morgan('dev'));
 
 app.use('/emotion', emotionRoutes);
@@ -12,7 +15,7 @@ app.get('*', function (req, res){
   res.status(404).send('You messed up buddy');
 });
 
-var server = app.listen(3000, function () {
+var server = app.listen(app.get('port'), function () {
 
   var host = server.address().address;
   var port = server.address().port;
