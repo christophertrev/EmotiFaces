@@ -4,7 +4,8 @@
   "description": "API endpoint that gives a random photo for a subset of emotions.",
   "main": "server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/christophertrev/EmotiFaces/issues"
   },
-  "homepage": "https://github.com/christophertrev/EmotiFaces"
+  "homepage": "https://github.com/christophertrev/EmotiFaces",
+  "dependencies": {
+    "express": "^4.11.1"
+  }
 }
