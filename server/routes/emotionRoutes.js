@@ -3,12 +3,9 @@ var router = express.Router();
 var path = require('path');
 var fs = require('fs');
 var multiparty = require('multiparty');
+var gm = require('gm').subClass({ imageMagick: true });
 
-// var happyFaceFileName = __dirname + '/../img/happy/happy1.png';
-// var happyFaceFileName = path.resolve(happyFaceFileName);
 
-// var sadFaceFileName = __dirname + '/../img/sad/sad-puppy.jpg';
-// var sadFaceFileName = path.resolve(sadFaceFileName);
 
 var baseURL = __dirname + '/../img/';
 var emotionDirs = {
@@ -19,6 +16,11 @@ var emotionDirs = {
 
 router.get('/:emotion',function (req,res){
   var pathDirName = emotionDirs[req.params.emotion];
+  console.log(pathDirName);
+  if( !pathDirName ){
+    res.status(404).send('sorry emotion does not exist');
+    return;
+  }
   fs.readdir(pathDirName,function (err,files){
     var randFloat = Math.random()*(files.length); 
     var rIndex = Math.floor(randFloat);
@@ -36,12 +38,16 @@ router.get('/:emotion',function (req,res){
 
 
 router.get('/',function (req,res){
-  res.json(Object.keys(emotionDirs))
+  res.json(Object.keys(emotionDirs));
   // res.send("oiasmdfasopidfa")
-})
+});
 
 router.post('/:emotion',function (req,res){
   var pathDirName = emotionDirs[req.params.emotion];
+  if( !pathDirName ){
+    res.status(404).send('sorry emotion does not exist');
+    return; 
+  }
   var form = new multiparty.Form();
 
   form.on('close', function(){
@@ -49,7 +55,7 @@ router.post('/:emotion',function (req,res){
   });
 
   form.on('field', function(name, val){
-    console.log('called field', name,val)
+    console.log('called field', name,val);
     if (name !== 'title') return;
     title = val;
   });
@@ -58,15 +64,21 @@ router.post('/:emotion',function (req,res){
     var tmp_path = file.path;
     var thumbPath = __dirname + '/uploads/thumbs/';
     var target_path = pathDirName +'/'+file.originalFilename;
-    //may want to resize image before saving 
-    fs.renameSync(tmp_path, target_path, function(err) {
-        if(err) console.error(err.stack);
-    });
-  })
+
+    gm(tmp_path)
+        .resize(600)
+        .noProfile()
+        .write(target_path, function(err) {
+            if(err) console.error(err.stack);       
+        });
+    // fs.renameSync(tmp_path, target_path, function(err) {
+    //     if(err) console.error(err.stack);
+    // });
+  });
 
   form.parse(req);
 
-})
+});
 
 
 
