@@ -9,6 +9,13 @@ app.set('port', (process.env.PORT || 3000));
 
 app.use(morgan('dev'));
 
+app.get('*',function (req, res, next){
+  //add header for cors compliencey
+  res.header('Access-Control-Allow-Origin', '*')
+  next();
+})
+
+
 app.use('/emotion', emotionRoutes);
 
 app.get('*', function (req, res){
