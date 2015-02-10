@@ -3,18 +3,12 @@ API endpoint that gives a random photo for a subset of emotions.
 
 baseURL = Emotifaces.herokuapp.com
 
-/emotion will give you all posible emotions
 
-/emotion/[emotionFromListAbove] will get you a picture of that emotion
+#### Get all Possible emotions
+emotions.christophertrev.com/emotion 
 
+#### Random Picture of Emotion
 
+emotions.christophertrev.com/emotion/[emotionFromListAbove] 
 
-
-
-
-/emotion/sadness
-/emotion/happyness
-/emotion/confusion
-/emotion/fearfulness
-/emotion/anger
-/emotion/frustration
+Ex. emotions.christophertrev.com/emotion/happy
