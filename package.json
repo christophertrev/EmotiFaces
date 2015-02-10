@@ -4,7 +4,7 @@
   "description": "API endpoint that gives a random photo for a subset of emotions.",
   "main": "server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "gulp test",
     "start": "nodemon server/server.js"
   },
   "repository": {
