@@ -37,6 +37,7 @@
     "gulp-util": "^3.0.3",
     "jshint-stylish": "^1.0.0",
     "reactify": "^1.0.0",
+    "should": "^5.0.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.3.0"

@@ -1,17 +1,6 @@
 var gulp   = require('gulp');
 var jshint = require('gulp-jshint');
-
-var paths = {
-  scripts: [
-  './server/**/*.js',
-  './gulpfile.js',
-  './client/**/*.js'
-  ],
-  server : {
-    js: ['./server/*.js'],
-    specs: ['.server/test/*.js']
-  }
-};
+var paths = require('../paths');
 
 module.exports = function() {
   return gulp.src(paths.scripts)
