@@ -16,14 +16,14 @@ var baseURL = __dirname + '/../img/';
 var emotionDirs = {};
 
 //Construct emotionDirs object
-var emoDirs = fs.readdirSync(baseURL)
+var emoDirs = fs.readdirSync(baseURL);
 for (var i =0; i < emoDirs.length; i++){
   if(emoDirs[i][0] !== '.'){
-    emotionDirs[emoDirs[i]] = path.resolve(baseURL + emoDirs[i])
+    emotionDirs[emoDirs[i]] = path.resolve(baseURL + emoDirs[i]);
   }
 }
 
-console.log(emotionDirs)
+// console.log(emotionDirs)
 
 
 
