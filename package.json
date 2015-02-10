@@ -19,15 +19,26 @@
   "homepage": "https://github.com/christophertrev/EmotiFaces",
   "dependencies": {
     "express": "^4.11.1",
+    "flux": "^2.0.1",
     "gm": "^1.17.0",
+    "keymirror": "^0.1.1",
     "morgan": "^1.5.1",
-    "multiparty": "^4.1.1"
+    "multiparty": "^4.1.1",
+    "object-assign": "^2.0.0",
+    "react": "^0.12.2"
   },
   "devDependencies": {
     "gulp": "^3.8.10",
     "gulp-jshint": "^1.9.0",
+    "gulp-jslint": "^0.2.2",
     "gulp-mocha": "^2.0.0",
     "gulp-nodemon": "^1.0.5",
-    "jshint-stylish": "^1.0.0"
+    "gulp-react": "^2.0.0",
+    "gulp-util": "^3.0.3",
+    "jshint-stylish": "^1.0.0",
+    "reactify": "^1.0.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^2.3.0"
   }
 }
