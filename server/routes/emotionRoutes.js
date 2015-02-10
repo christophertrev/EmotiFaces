@@ -8,10 +8,24 @@ var gm = require('gm').subClass({ imageMagick: true });
 
 
 var baseURL = __dirname + '/../img/';
-var emotionDirs = {
-  happy: path.resolve(baseURL + 'happy'),
-  sad: path.resolve(baseURL + 'sad'),
-};
+// var emotionDirs = {
+//   happy: path.resolve(baseURL + 'happy'),
+//   sad: path.resolve(baseURL + 'sad'),
+// };
+
+var emotionDirs = {};
+
+//Construct emotionDirs object
+var emoDirs = fs.readdirSync(baseURL)
+for (var i =0; i < emoDirs.length; i++){
+  if(emoDirs[i][0] !== '.'){
+    emotionDirs[emoDirs[i]] = path.resolve(baseURL + emoDirs[i])
+  }
+}
+
+console.log(emotionDirs)
+
+
 
 
 router.get('/:emotion',function (req,res){
@@ -38,7 +52,10 @@ router.get('/:emotion',function (req,res){
 
 
 router.get('/',function (req,res){
-  res.json(Object.keys(emotionDirs));
+  // fs.readdir(path.resolve(baseURL), function (err, contents){
+    // console.log('emotion dir', contents)
+    res.json(Object.keys(emotionDirs));
+  // })
   // res.send("oiasmdfasopidfa")
 });
 
