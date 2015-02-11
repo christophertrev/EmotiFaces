@@ -12,16 +12,26 @@
   font-family: 'Lato', serif;
 
 }
-
-
-.emotionImg {
+.picture {
   float: left;
   display: block;
   height: 500px;
   width: 500px;
-  /*background: url('../img/loading.gif') no-repeat;*/
 }
 
+.emotionImg {
+  position: absolute;
+  display: none;
+  height: 500px;
+  width: 500px;
+}
+.loadingImg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+
+}
 
 .content {
   margin-left: 20%;
