@@ -13,7 +13,6 @@ var getTodoState = function (){
     allEmotions: EmotionStore.getAll(),
     selectedID: EmotionStore.getSelectedID(),
     imgSrc: EmotionStore.getImgSrc(),
-    showLoading: EmotionStore.showLoading(),
     showImages : EmotionStore.showImages()
   }
 }
