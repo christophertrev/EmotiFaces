@@ -8,6 +8,11 @@ module.exports = {
   server : {
     js: ['./server/*.js'],
     specs: ['./server/test/*.js']
+  },
+  client : {
+    src: ['./client/src'],
+    lib: 'client/lib'
   }
+
 };
 

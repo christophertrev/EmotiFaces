@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/christophertrev/EmotiFaces",
   "dependencies": {
+    "browserify": "^8.1.3",
     "express": "^4.11.1",
     "flux": "^2.0.1",
     "gm": "^1.17.0",
