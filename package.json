@@ -22,16 +22,17 @@
     "express": "^4.11.1",
     "flux": "^2.0.1",
     "gm": "^1.17.0",
+    "gulp": "^3.8.10",
+    "gulp-util": "^3.0.3",
     "keymirror": "^0.1.1",
     "morgan": "^1.5.1",
     "multiparty": "^4.1.1",
+    "newrelic": "^1.16.1",
     "object-assign": "^2.0.0",
-    "gulp": "^3.8.10",
-    "gulp-util": "^3.0.3",
-    "vinyl-source-stream": "^1.0.0",
+    "react": "^0.12.2",
     "reactify": "^1.0.0",
-    "watchify": "^2.3.0",
-    "react": "^0.12.2"
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^2.3.0"
   },
   "devDependencies": {
     "gulp-istanbul": "^0.6.0",
