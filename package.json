@@ -5,7 +5,6 @@
   "main": "server/server.js",
   "scripts": {
     "test": "gulp test",
-    "postinstall" : "gulp built" ,
     "start": "nodemon server/server.js"
   },
   "repository": {

@@ -1,9 +1,9 @@
 // var gulp   = require('gulp');
 var gulp = require('./gulp')([
+  'built',
   'lint',
   'mocha',
   'build',
-  'built'
 ]);
 // var jshint = require('gulp-jshint');
 // var  = require('jshint-stylish');
