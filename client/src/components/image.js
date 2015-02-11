@@ -38,7 +38,8 @@ var EmotionList = React.createClass({
         'emotionImg': true
       }) }
       src={this.props.imgSRC}
-      onLoad={this._onLoad} />
+      onLoad={this._onLoad}
+      onClick={this._onClick} />
         : null}
       </div>
     )
@@ -48,6 +49,11 @@ var EmotionList = React.createClass({
     console.log('changedddd')
     EmotionClientActionCreators.hideLoading();
     //Hide loading image
+  },
+
+  _onClick: function (){
+    // EmotionClientActionCreators.selectEmotion(this.props.emotion.id)
+    EmotionClientActionCreators.refreshImage();
   }
 
 

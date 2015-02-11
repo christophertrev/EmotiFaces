@@ -19,5 +19,11 @@ module.exports = {
     AppDispatcher.handleViewAction({
       type: 'HIDE_LOADING'
     });
+  },
+  refreshImage: function (){
+    console.log("refreshing Image");
+    AppDispatcher.handleViewAction({
+      type: 'REFRESH_IMAGE'
+    });
   }
 };

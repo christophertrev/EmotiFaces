@@ -82,6 +82,12 @@ module.exports = {
     AppDispatcher.handleViewAction({
       type: 'HIDE_LOADING'
     });
+  },
+  refreshImage: function (){
+    console.log("refreshing Image");
+    AppDispatcher.handleViewAction({
+      type: 'REFRESH_IMAGE'
+    });
   }
 };
 
@@ -292,7 +298,8 @@ var EmotionList = React.createClass({displayName: "EmotionList",
         'emotionImg': true
       }), 
       src: this.props.imgSRC, 
-      onLoad: this._onLoad})
+      onLoad: this._onLoad, 
+      onClick: this._onClick})
         : null
       )
     )
@@ -302,6 +309,11 @@ var EmotionList = React.createClass({displayName: "EmotionList",
     console.log('changedddd')
     EmotionClientActionCreators.hideLoading();
     //Hide loading image
+  },
+
+  _onClick: function (){
+    // EmotionClientActionCreators.selectEmotion(this.props.emotion.id)
+    EmotionClientActionCreators.refreshImage();
   }
 
 
@@ -357,6 +369,7 @@ var _showImages = {
   showLoading: false,
   showEmotion: true
 }
+var _imgURL = null;
 
 var EmotionsStore = assign({}, EventEmitter.prototype, {
   
@@ -377,16 +390,18 @@ var EmotionsStore = assign({}, EventEmitter.prototype, {
   },
 
   getImgSrc: function (){
+    console.log('getImgSrc')
     url = 'http://emotifaces.herokuapp.com/emotion/';
     if (_emotions[_selectedID]){
       // console.log(_emotions[_selectedID], 'emotions')
       url += _emotions[_selectedID].emotion;
+      // url += '?timestamp=' + new Date().getTime();
     } else {
       //put default image here
       url = 'img/loading.gif'
       url= null
     }
-    return url;
+    return _imgURL;
   },
 
   emitChange: function() {
@@ -427,6 +442,19 @@ EmotionsStore.dispatchToken = AppDispatcher.register(function(payload) {
       _showImages.showLoading = true;
       _showImages.showEmotion = false;
       _selectedID = action.id
+
+      console.log('getImgSrc')
+      url = 'http://emotifaces.herokuapp.com/emotion/';
+      if (_emotions[_selectedID]){
+        // console.log(_emotions[_selectedID], 'emotions')
+        url += _emotions[_selectedID].emotion;
+        url += '?timestamp=' + new Date().getTime();
+      } else {
+        //put default image here
+        url = 'img/loading.gif'
+        url= null
+      }
+      _imgURL = url;
       EmotionsStore.emitChange();
       break
     case 'HIDE_LOADING':
@@ -436,6 +464,25 @@ EmotionsStore.dispatchToken = AppDispatcher.register(function(payload) {
       EmotionsStore.emitChange();
 
       break
+    case 'REFRESH_IMAGE': 
+      _showImages.showLoading = true;
+      _showImages.showEmotion = false;
+      console.log('REFRESH_IMAGE action!')
+      url = 'http://emotifaces.herokuapp.com/emotion/';
+      if (_emotions[_selectedID]){
+        // console.log(_emotions[_selectedID], 'emotions')
+        url += _emotions[_selectedID].emotion;
+        url += '?timestamp=' + new Date().getTime();
+      } else {
+        //put default image here
+        url = 'img/loading.gif'
+        url= null
+      }
+      _imgURL = url;
+      EmotionsStore.emitChange();
+
+      break
+
   }
   
 

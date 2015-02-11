@@ -13,6 +13,7 @@ var _showImages = {
   showLoading: false,
   showEmotion: true
 }
+var _imgURL = null;
 
 var EmotionsStore = assign({}, EventEmitter.prototype, {
   
@@ -33,16 +34,18 @@ var EmotionsStore = assign({}, EventEmitter.prototype, {
   },
 
   getImgSrc: function (){
+    console.log('getImgSrc')
     url = 'http://emotifaces.herokuapp.com/emotion/';
     if (_emotions[_selectedID]){
       // console.log(_emotions[_selectedID], 'emotions')
       url += _emotions[_selectedID].emotion;
+      // url += '?timestamp=' + new Date().getTime();
     } else {
       //put default image here
       url = 'img/loading.gif'
       url= null
     }
-    return url;
+    return _imgURL;
   },
 
   emitChange: function() {
@@ -83,6 +86,19 @@ EmotionsStore.dispatchToken = AppDispatcher.register(function(payload) {
       _showImages.showLoading = true;
       _showImages.showEmotion = false;
       _selectedID = action.id
+
+      console.log('getImgSrc')
+      url = 'http://emotifaces.herokuapp.com/emotion/';
+      if (_emotions[_selectedID]){
+        // console.log(_emotions[_selectedID], 'emotions')
+        url += _emotions[_selectedID].emotion;
+        url += '?timestamp=' + new Date().getTime();
+      } else {
+        //put default image here
+        url = 'img/loading.gif'
+        url= null
+      }
+      _imgURL = url;
       EmotionsStore.emitChange();
       break
     case 'HIDE_LOADING':
@@ -92,6 +108,25 @@ EmotionsStore.dispatchToken = AppDispatcher.register(function(payload) {
       EmotionsStore.emitChange();
 
       break
+    case 'REFRESH_IMAGE': 
+      _showImages.showLoading = true;
+      _showImages.showEmotion = false;
+      console.log('REFRESH_IMAGE action!')
+      url = 'http://emotifaces.herokuapp.com/emotion/';
+      if (_emotions[_selectedID]){
+        // console.log(_emotions[_selectedID], 'emotions')
+        url += _emotions[_selectedID].emotion;
+        url += '?timestamp=' + new Date().getTime();
+      } else {
+        //put default image here
+        url = 'img/loading.gif'
+        url= null
+      }
+      _imgURL = url;
+      EmotionsStore.emitChange();
+
+      break
+
   }
   
 
