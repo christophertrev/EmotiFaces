@@ -24,11 +24,17 @@ app.get('*', function (req, res){
   res.status(404).send('You messed up buddy');
 });
 
-var server = app.listen(app.get('port'), function () {
+// var server = app.listen(app.get('port'), function () {
 
-  var host = server.address().address;
-  var port = server.address().port;
+//   var host = server.address().address;
+//   var port = server.address().port;
 
-  console.log('App listening at http://%s:%s', host, port);
+//   console.log('App listening at http://%s:%s', host, port);
 
-});
+// });
+
+app.listen(app.get('port'));
+console.log('App listening at on %s', app.get('port'));
+
+
+module.exports = app

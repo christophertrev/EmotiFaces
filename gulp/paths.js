@@ -7,7 +7,7 @@ module.exports = {
   ],
   server : {
     js: ['./server/*.js'],
-    specs: ['.server/test/*.js']
+    specs: ['./server/test/*.js']
   }
 };
 
