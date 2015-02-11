@@ -33,11 +33,7 @@ var EmotionApp = React.createClass({
     EmotionStore.removeChangeListener(this._onChange);
   },
 
-      // <VideoHTML5 src='video/video.mp4' /> 
-      // Hello, <input type="text" placeholder="Your name here Please s" />!
-      // It is {this.props.date.toTimeString()}
   render: function() {
-    console.log('state', this.state)
     return (
       <div>
       <EmotionList selectedID={this.state.selectedID} allEmotions={this.state.allEmotions} />
@@ -51,7 +47,6 @@ var EmotionApp = React.createClass({
   }
 });
 
-// setInterval(function() {
 React.render(
   <EmotionApp date={new Date()} />,
   document.getElementById('example')

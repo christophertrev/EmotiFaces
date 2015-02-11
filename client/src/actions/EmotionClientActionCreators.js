@@ -7,21 +7,17 @@ var webAPIUtils = require('../utils/webAPIUtils');
 module.exports = {
 
   selectEmotion: function(id) {
-    // var rawMessages = ['sad','happy'];
-    console.log('in selectEmotion with id= ',id)
     AppDispatcher.handleViewAction({
       type: 'SELECT_EMOTION',
       id: id
     });
   },
   hideLoading: function (){
-    console.log('in hideLoading')
     AppDispatcher.handleViewAction({
       type: 'HIDE_LOADING'
     });
   },
   refreshImage: function (){
-    console.log("refreshing Image");
     AppDispatcher.handleViewAction({
       type: 'REFRESH_IMAGE'
     });

@@ -6,7 +6,6 @@ var cx = require('react/lib/cx');
 var EmotionItem = React.createClass({
 
   render: function (){
-    // console.log('in emtotionItme',this.props)
     return (
       <li
       className = {cx({

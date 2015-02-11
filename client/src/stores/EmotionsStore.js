@@ -28,17 +28,6 @@ var EmotionsStore = assign({}, EventEmitter.prototype, {
   },
 
   getImgSrc: function (){
-    console.log('getImgSrc')
-    url = 'http://emotifaces.herokuapp.com/emotion/';
-    if (_emotions[_selectedID]){
-      // console.log(_emotions[_selectedID], 'emotions')
-      url += _emotions[_selectedID].emotion;
-      // url += '?timestamp=' + new Date().getTime();
-    } else {
-      //put default image here
-      url = 'img/loading.gif'
-      url= null
-    }
     return _imgURL;
   },
 
@@ -58,11 +47,8 @@ var EmotionsStore = assign({}, EventEmitter.prototype, {
 
 EmotionsStore.dispatchToken = AppDispatcher.register(function(payload) {
   var action = payload.action;
-  console.log(actionList)
-
   actionList[action.type](action)
   EmotionsStore.emitChange();
-
 })
 
 var actionList = {
@@ -79,10 +65,8 @@ var actionList = {
     _showImages.showEmotion = false;
     _selectedID = action.id
 
-    console.log('getImgSrc')
     url = 'http://emotifaces.herokuapp.com/emotion/';
     if (_emotions[_selectedID]){
-      // console.log(_emotions[_selectedID], 'emotions')
       url += _emotions[_selectedID].emotion;
       url += '?timestamp=' + new Date().getTime();
     } else {
@@ -93,7 +77,6 @@ var actionList = {
     _imgURL = url;
   },
   HIDE_LOADING : function (action){
-    console.log('hidding loading thing')
     _showImages.showEmotion = true;
     _showImages.showLoading = false;
   },

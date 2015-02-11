@@ -34,11 +34,7 @@ var EmotionApp = React.createClass({displayName: "EmotionApp",
     EmotionStore.removeChangeListener(this._onChange);
   },
 
-      // <VideoHTML5 src='video/video.mp4' /> 
-      // Hello, <input type="text" placeholder="Your name here Please s" />!
-      // It is {this.props.date.toTimeString()}
   render: function() {
-    console.log('state', this.state)
     return (
       React.createElement("div", null, 
       React.createElement(EmotionList, {selectedID: this.state.selectedID, allEmotions: this.state.allEmotions}), 
@@ -52,7 +48,6 @@ var EmotionApp = React.createClass({displayName: "EmotionApp",
   }
 });
 
-// setInterval(function() {
 React.render(
   React.createElement(EmotionApp, {date: new Date()}),
   document.getElementById('example')
@@ -69,21 +64,17 @@ var webAPIUtils = require('../utils/webAPIUtils');
 module.exports = {
 
   selectEmotion: function(id) {
-    // var rawMessages = ['sad','happy'];
-    console.log('in selectEmotion with id= ',id)
     AppDispatcher.handleViewAction({
       type: 'SELECT_EMOTION',
       id: id
     });
   },
   hideLoading: function (){
-    console.log('in hideLoading')
     AppDispatcher.handleViewAction({
       type: 'HIDE_LOADING'
     });
   },
   refreshImage: function (){
-    console.log("refreshing Image");
     AppDispatcher.handleViewAction({
       type: 'REFRESH_IMAGE'
     });
@@ -100,24 +91,11 @@ var webAPIUtils = require('../utils/webAPIUtils');
 module.exports = {
 
   receiveAll: function(rawMessages) {
-    // var rawMessages = ['sad','happy'];
-    console.log('in receiveAll', rawMessages)
     AppDispatcher.handleServerAction({
       type: 'RECEIVE_MESSAGES',
       rawMessages: rawMessages
     });
   },
-
-  // getEmotions: function (){
-  //   webAPIUtils.getAllEmotions()
-  // }
-  // receiveCreatedMessage: function(createdMessage) {
-  //   AppDispatcher.handleServerAction({
-  //     type: 'RECEIVE_RAW_CREATED_MESSAGE',
-  //     rawMessage: createdMessage
-  //   });
-  // }
-
 };
 
 },{"../dispatcher/AppDispatcher":"/Users/christophertrev/hackTime/EmotiFaces/client/src/dispatcher/AppDispatcher.js","../utils/webAPIUtils":"/Users/christophertrev/hackTime/EmotiFaces/client/src/utils/webAPIUtils.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/components/VideoHTML5.js":[function(require,module,exports){
@@ -206,7 +184,6 @@ var cx = require('react/lib/cx');
 var EmotionItem = React.createClass({displayName: "EmotionItem",
 
   render: function (){
-    // console.log('in emtotionItme',this.props)
     return (
       React.createElement("li", {
       className: cx({
@@ -238,19 +215,14 @@ var EmotionList = React.createClass({displayName: "EmotionList",
 
   render: function (){
     var emotions = [];
-    // var allTodos = {'1':{text: 'This is Item 1'}, '2':{text:'This is item 2'}}
     var allEmotions = this.props.allEmotions;
-    // console.log(this.props)
-    // var { allEmotions, ...other } = this.props;
     for (var key in allEmotions) {
-      // emotions.push(<TodoItem key={key} todo={allemotions[key]} />);
       emotions.push(React.createElement(EmotionItem, React.__spread({},  this.props, {key: key, emotion: allEmotions[key]})));
     }
     return (
       React.createElement("ul", {className: "emotionList"}, emotions)
     )
   },
-
 })
 
 
@@ -267,15 +239,6 @@ var EmotionList = React.createClass({displayName: "EmotionList",
 // "https://avatars3.githubusercontent.com/u/6379188?v=3&s=460"
 
   render: function(){
-    console.log('in image rendering', this.props.showImages)
-    // var imageSRC = 'http://emotifaces.herokuapp.com/emotion/'
-    // if(this.props.selectedID){
-    //   imageSRC += this.props.allEmotions[this.props.selectedID].emotion
-    // } else {
-    //   imageSRC = '../img/loading.gif'
-    // }
-    //console.log(this.props.im)
-    // console.log(imageSRC)
     var showLoading = this.props.showImages.showLoading;
     var showEmotion = this.props.showImages.showEmotion
     return (
@@ -305,13 +268,10 @@ var EmotionList = React.createClass({displayName: "EmotionList",
   },
 
   _onLoad : function (){
-    console.log('changedddd')
     EmotionClientActionCreators.hideLoading();
-    //Hide loading image
   },
 
   _onClick: function (){
-    // EmotionClientActionCreators.selectEmotion(this.props.emotion.id)
     EmotionClientActionCreators.refreshImage();
   }
 
@@ -336,18 +296,12 @@ var AppDispatcher = assign(new Dispatcher, {
       action: action
     });
   },
-  /**
-   * A bridge function between the views and the dispatcher, marking the action
-   * as a view action.  Another variant here could be handleServerAction.
-   * @param  {object} action The data coming from the view.
-   */
   handleViewAction: function(action) {
     this.dispatch({
       source: 'VIEW_ACTION',
       action: action
     });
   }
-
 });
 
 module.exports = AppDispatcher;
@@ -383,17 +337,6 @@ var EmotionsStore = assign({}, EventEmitter.prototype, {
   },
 
   getImgSrc: function (){
-    console.log('getImgSrc')
-    url = 'http://emotifaces.herokuapp.com/emotion/';
-    if (_emotions[_selectedID]){
-      // console.log(_emotions[_selectedID], 'emotions')
-      url += _emotions[_selectedID].emotion;
-      // url += '?timestamp=' + new Date().getTime();
-    } else {
-      //put default image here
-      url = 'img/loading.gif'
-      url= null
-    }
     return _imgURL;
   },
 
@@ -413,11 +356,8 @@ var EmotionsStore = assign({}, EventEmitter.prototype, {
 
 EmotionsStore.dispatchToken = AppDispatcher.register(function(payload) {
   var action = payload.action;
-  console.log(actionList)
-
   actionList[action.type](action)
   EmotionsStore.emitChange();
-
 })
 
 var actionList = {
@@ -434,10 +374,8 @@ var actionList = {
     _showImages.showEmotion = false;
     _selectedID = action.id
 
-    console.log('getImgSrc')
     url = 'http://emotifaces.herokuapp.com/emotion/';
     if (_emotions[_selectedID]){
-      // console.log(_emotions[_selectedID], 'emotions')
       url += _emotions[_selectedID].emotion;
       url += '?timestamp=' + new Date().getTime();
     } else {
@@ -448,7 +386,6 @@ var actionList = {
     _imgURL = url;
   },
   HIDE_LOADING : function (action){
-    console.log('hidding loading thing')
     _showImages.showEmotion = true;
     _showImages.showLoading = false;
   },
@@ -472,18 +409,11 @@ var EmotionServerActionCreators = require('../actions/EmotionServerActionCreator
 
 module.exports = {
   getAllEmotions: function (){
-    console.log('getting all emotions')
     $.ajax({
       url: "https://emotifaces.herokuapp.com/emotion/"
-      // url: "http://localhost:3000/emotion"
     })
       .done(function( emotions ) {
-        // if ( console && console.log ) {
-          // console.log(Array.isArray(data))
-          // console.log( "Sample of data:", data.slice( 0, 100 ) );
-          // var emotions = data;
           EmotionServerActionCreators.receiveAll(emotions);
-        // }
       });
 
 
