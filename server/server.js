@@ -37,4 +37,4 @@ app.listen(app.get('port'));
 console.log('App listening at on %s', app.get('port'));
 
 
-module.exports = app
+module.exports = app;
