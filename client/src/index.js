@@ -1,3 +1,4 @@
+var React = require('react');
 // var Dispatcher = require('flux').Dispatcher;
 var VideoHTML5 = require('./components/VideoHTML5');
 var EmotionList = require('./components/emotionList');

@@ -1,3 +1,4 @@
+var React = require('react');
 var EmotionClientActionCreators = require('../actions/EmotionClientActionCreators');
 var cx = require('react/lib/cx');
 
