@@ -87,8 +87,8 @@ var actionList = {
       url += '?timestamp=' + new Date().getTime();
     } else {
       //put default image here
-      url = 'img/loading.gif'
-      url= null
+      // url = 'img/loading.gif'
+      url = null;
     }
     _imgURL = url;
   },
@@ -100,18 +100,7 @@ var actionList = {
   REFRESH_IMAGE : function (action){
     _showImages.showLoading = true;
     _showImages.showEmotion = false;
-    // console.log('REFRESH_IMAGE action!')
-    // url = 'http://emotifaces.herokuapp.com/emotion/';
-    // if (_emotions[_selectedID]){
-    //   // console.log(_emotions[_selectedID], 'emotions')
-    //   url += _emotions[_selectedID].emotion;
-    //   url += '?timestamp=' + new Date().getTime();
-    // } else {
-    //   //put default image here
-    //   url = 'img/loading.gif'
-    //   url= null
-    // }
-    // _imgURL = url;
+    //Append one to the timestampe to refresh image
     _imgURL += 1;
   }
 
