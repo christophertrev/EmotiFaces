@@ -8,6 +8,7 @@
   margin: 0 0 0 0;
   padding: 0 0 0 0;
   list-style-type: none;
+  cursor: pointer;
 
 }
 
@@ -15,6 +16,6 @@
 .emotionImg{
   float: left;
   display: block;
-  height: 100px;
-  width: 100px;
+  height: 500px;
+  width: 500px;
 }
