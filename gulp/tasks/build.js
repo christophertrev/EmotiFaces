@@ -13,7 +13,7 @@ var bundler = watchify(browserify(paths.client.src + '/index.js', watchify.args)
 bundler.transform(reactify);
 
 // gulp.task('js', bundle); // so you can run `gulp js` to build the file
-bundler.on('update', bundle); // on any dep update, runs the bundler
+// bundler.on('update', bundle); // on any dep update, runs the bundler
 
 function bundle() {
   return bundler.bundle()
