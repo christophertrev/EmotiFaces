@@ -191,7 +191,7 @@ var cx = require('react/lib/cx');
 var EmotionItem = React.createClass({displayName: "EmotionItem",
 
   render: function (){
-    console.log('in emtotionItme',this.props)
+    // console.log('in emtotionItme',this.props)
     return (
       React.createElement("li", {
       className: cx({
@@ -254,6 +254,8 @@ var EmotionList = React.createClass({displayName: "EmotionList",
     var imageSRC = 'http://emotifaces.herokuapp.com/emotion/'
     if(this.props.selectedID){
       imageSRC += this.props.allEmotions[this.props.selectedID].emotion
+    } else {
+      imageSRC = 'img/loading.gif'
     }
     console.log(imageSRC)
     return (

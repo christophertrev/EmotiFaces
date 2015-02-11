@@ -10,6 +10,8 @@ var EmotionList = React.createClass({
     var imageSRC = 'http://emotifaces.herokuapp.com/emotion/'
     if(this.props.selectedID){
       imageSRC += this.props.allEmotions[this.props.selectedID].emotion
+    } else {
+      imageSRC = 'img/loading.gif'
     }
     console.log(imageSRC)
     return (

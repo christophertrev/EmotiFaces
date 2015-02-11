@@ -9,6 +9,7 @@
   padding: 0 0 0 0;
   list-style-type: none;
   cursor: pointer;
+  font-family: 'Lato', serif;
 
 }
 
@@ -18,6 +19,7 @@
   display: block;
   height: 500px;
   width: 500px;
+  /*background: url('../img/loading.gif') no-repeat;*/
 }
 
 
