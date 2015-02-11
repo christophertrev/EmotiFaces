@@ -5,7 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "test": "gulp test",
-    "postinstall" : "gulp build" ,
+    "postinstall" : "gulp built" ,
     "start": "nodemon server/server.js"
   },
   "repository": {
@@ -27,22 +27,22 @@
     "morgan": "^1.5.1",
     "multiparty": "^4.1.1",
     "object-assign": "^2.0.0",
+    "gulp": "^3.8.10",
+    "gulp-util": "^3.0.3",
+    "vinyl-source-stream": "^1.0.0",
+    "reactify": "^1.0.0",
+    "watchify": "^2.3.0",
     "react": "^0.12.2"
   },
   "devDependencies": {
-    "gulp": "^3.8.10",
     "gulp-istanbul": "^0.6.0",
     "gulp-jshint": "^1.9.0",
     "gulp-jslint": "^0.2.2",
     "gulp-mocha": "^2.0.0",
     "gulp-nodemon": "^1.0.5",
     "gulp-react": "^2.0.0",
-    "gulp-util": "^3.0.3",
     "jshint-stylish": "^1.0.0",
-    "reactify": "^1.0.0",
     "should": "^5.0.0",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.0.0",
-    "watchify": "^2.3.0"
+    "vinyl-buffer": "^1.0.0"
   }
 }
