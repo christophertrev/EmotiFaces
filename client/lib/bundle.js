@@ -12,7 +12,8 @@ var webAPIUtils = require('./utils/webAPIUtils');
 var getTodoState = function (){
   return {
     allEmotions: EmotionStore.getAll(),
-    selectedID: EmotionStore.getSelectedID()
+    selectedID: EmotionStore.getSelectedID(),
+    imgSrc: EmotionStore.getImgSrc()
   }
 }
 
@@ -36,6 +37,7 @@ var EmotionApp = React.createClass({displayName: "EmotionApp",
       // Hello, <input type="text" placeholder="Your name here Please s" />!
       // It is {this.props.date.toTimeString()}
   render: function() {
+    console.log('state', this.state)
     return (
       React.createElement("div", null, 
       React.createElement(EmotionList, {selectedID: this.state.selectedID, allEmotions: this.state.allEmotions}), 
@@ -323,6 +325,18 @@ var EmotionsStore = assign({}, EventEmitter.prototype, {
 
   getSelectedID: function (){
     return _selectedID;
+  },
+
+  getImgSrc: function (){
+    url = 'http://emotifaces.herokuapp.com/emotion/';
+    if (_emotions[_selectedID]){
+      // console.log(_emotions[_selectedID], 'emotions')
+      url += _emotions[_selectedID].emotion;
+    } else {
+      //put default image here
+      url = 'img/loading.gif'
+    }
+    return url;
   },
 
   emitChange: function() {

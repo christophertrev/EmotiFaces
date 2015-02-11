@@ -18,6 +18,18 @@ var EmotionsStore = assign({}, EventEmitter.prototype, {
     return _selectedID;
   },
 
+  getImgSrc: function (){
+    url = 'http://emotifaces.herokuapp.com/emotion/';
+    if (_emotions[_selectedID]){
+      // console.log(_emotions[_selectedID], 'emotions')
+      url += _emotions[_selectedID].emotion;
+    } else {
+      //put default image here
+      url = 'img/loading.gif'
+    }
+    return url;
+  },
+
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },

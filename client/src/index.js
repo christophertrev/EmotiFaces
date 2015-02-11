@@ -11,7 +11,8 @@ var webAPIUtils = require('./utils/webAPIUtils');
 var getTodoState = function (){
   return {
     allEmotions: EmotionStore.getAll(),
-    selectedID: EmotionStore.getSelectedID()
+    selectedID: EmotionStore.getSelectedID(),
+    imgSrc: EmotionStore.getImgSrc()
   }
 }
 
@@ -35,6 +36,7 @@ var EmotionApp = React.createClass({
       // Hello, <input type="text" placeholder="Your name here Please s" />!
       // It is {this.props.date.toTimeString()}
   render: function() {
+    console.log('state', this.state)
     return (
       <div>
       <EmotionList selectedID={this.state.selectedID} allEmotions={this.state.allEmotions} />
