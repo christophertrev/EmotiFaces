@@ -12,7 +12,9 @@ var getTodoState = function (){
   return {
     allEmotions: EmotionStore.getAll(),
     selectedID: EmotionStore.getSelectedID(),
-    imgSrc: EmotionStore.getImgSrc()
+    imgSrc: EmotionStore.getImgSrc(),
+    showLoading: EmotionStore.showLoading(),
+    showImages : EmotionStore.showImages()
   }
 }
 
@@ -40,7 +42,7 @@ var EmotionApp = React.createClass({
     return (
       <div>
       <EmotionList selectedID={this.state.selectedID} allEmotions={this.state.allEmotions} />
-      <EmotionImage imgSRC={this.state.imgSrc} />
+      <EmotionImage showImages={this.state.showImages} showLoading={this.state.showLoading} imgSRC={this.state.imgSrc} />
       </div>
     );
   },

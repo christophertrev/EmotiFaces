@@ -7,6 +7,12 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var CHANGE_EVENT = 'change';
 var _emotions = {};
 var _selectedID = null;
+var _showLoading = false;
+var _showEmotion = true;
+var _showImages = {
+  showLoading: false,
+  showEmotion: true
+}
 
 var EmotionsStore = assign({}, EventEmitter.prototype, {
   
@@ -18,6 +24,14 @@ var EmotionsStore = assign({}, EventEmitter.prototype, {
     return _selectedID;
   },
 
+  showLoading : function (){
+    return _showLoading;
+  },
+
+  showImages: function (){
+    return _showImages
+  },
+
   getImgSrc: function (){
     url = 'http://emotifaces.herokuapp.com/emotion/';
     if (_emotions[_selectedID]){
@@ -26,6 +40,7 @@ var EmotionsStore = assign({}, EventEmitter.prototype, {
     } else {
       //put default image here
       url = 'img/loading.gif'
+      url= null
     }
     return url;
   },
@@ -65,8 +80,17 @@ EmotionsStore.dispatchToken = AppDispatcher.register(function(payload) {
       // this._selectedID = _emotions[action.id].selected;
       // this._selectedID = action.id
       // console.log('action???', action.id)
+      _showImages.showLoading = true;
+      _showImages.showEmotion = false;
       _selectedID = action.id
       EmotionsStore.emitChange();
+      break
+    case 'HIDE_LOADING':
+      console.log('hidding loading thing')
+      _showImages.showEmotion = true;
+      _showImages.showLoading = false;
+      EmotionsStore.emitChange();
+
       break
   }
   

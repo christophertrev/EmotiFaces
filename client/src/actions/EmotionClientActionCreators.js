@@ -14,4 +14,10 @@ module.exports = {
       id: id
     });
   },
+  hideLoading: function (){
+    console.log('in hideLoading')
+    AppDispatcher.handleViewAction({
+      type: 'HIDE_LOADING'
+    });
+  }
 };

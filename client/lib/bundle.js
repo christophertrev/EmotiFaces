@@ -13,7 +13,9 @@ var getTodoState = function (){
   return {
     allEmotions: EmotionStore.getAll(),
     selectedID: EmotionStore.getSelectedID(),
-    imgSrc: EmotionStore.getImgSrc()
+    imgSrc: EmotionStore.getImgSrc(),
+    showLoading: EmotionStore.showLoading(),
+    showImages : EmotionStore.showImages()
   }
 }
 
@@ -41,7 +43,7 @@ var EmotionApp = React.createClass({displayName: "EmotionApp",
     return (
       React.createElement("div", null, 
       React.createElement(EmotionList, {selectedID: this.state.selectedID, allEmotions: this.state.allEmotions}), 
-      React.createElement(EmotionImage, {imgSRC: this.state.imgSrc})
+      React.createElement(EmotionImage, {showImages: this.state.showImages, showLoading: this.state.showLoading, imgSRC: this.state.imgSrc})
       )
     );
   },
@@ -75,6 +77,12 @@ module.exports = {
       id: id
     });
   },
+  hideLoading: function (){
+    console.log('in hideLoading')
+    AppDispatcher.handleViewAction({
+      type: 'HIDE_LOADING'
+    });
+  }
 };
 
 },{"../dispatcher/AppDispatcher":"/Users/christophertrev/hackTime/EmotiFaces/client/src/dispatcher/AppDispatcher.js","../utils/webAPIUtils":"/Users/christophertrev/hackTime/EmotiFaces/client/src/utils/webAPIUtils.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/actions/EmotionServerActionCreators.js":[function(require,module,exports){
@@ -246,13 +254,15 @@ module.exports = EmotionList;
 },{"./emotionItem":"/Users/christophertrev/hackTime/EmotiFaces/client/src/components/emotionItem.js","react":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react/react.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/components/image.js":[function(require,module,exports){
 var React = require('react');
 var cx = require('react/lib/cx');
+var EmotionClientActionCreators = require('../actions/EmotionClientActionCreators');
+
 
 
 var EmotionList = React.createClass({displayName: "EmotionList",
 // "https://avatars3.githubusercontent.com/u/6379188?v=3&s=460"
 
   render: function(){
-    // console.log('in image rendering', this.props)
+    console.log('in image rendering', this.props.showImages)
     // var imageSRC = 'http://emotifaces.herokuapp.com/emotion/'
     // if(this.props.selectedID){
     //   imageSRC += this.props.allEmotions[this.props.selectedID].emotion
@@ -261,25 +271,37 @@ var EmotionList = React.createClass({displayName: "EmotionList",
     // }
     //console.log(this.props.im)
     // console.log(imageSRC)
+    var showLoading = this.props.showImages.showLoading;
+    var showEmotion = this.props.showImages.showEmotion
     return (
       React.createElement("div", {
       className: cx({
         'picture': true
       }) 
       }, 
+      showLoading ? 
       React.createElement("img", {
-      className: cx({
-        'loadingImg': true
-      }), 
-      src: "img/loading.gif"}), 
-
+        className: cx({
+          'loadingImg': true
+        }), 
+        src: "img/loading.gif"})
+        : null, 
+       true ?
       React.createElement("img", {
       className: cx({
         'emotionImg': true
       }), 
-      src: this.props.imgSRC})
+      src: this.props.imgSRC, 
+      onLoad: this._onLoad})
+        : null
       )
     )
+  },
+
+  _onLoad : function (){
+    console.log('changedddd')
+    EmotionClientActionCreators.hideLoading();
+    //Hide loading image
   }
 
 
@@ -289,7 +311,7 @@ var EmotionList = React.createClass({displayName: "EmotionList",
 module.exports = EmotionList;
 
 
-},{"react":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react/react.js","react/lib/cx":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react/lib/cx.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/dispatcher/AppDispatcher.js":[function(require,module,exports){
+},{"../actions/EmotionClientActionCreators":"/Users/christophertrev/hackTime/EmotiFaces/client/src/actions/EmotionClientActionCreators.js","react":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react/react.js","react/lib/cx":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react/lib/cx.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/dispatcher/AppDispatcher.js":[function(require,module,exports){
 var assign = require('object-assign');
 var Dispatcher = require('flux').Dispatcher;
 
@@ -329,6 +351,12 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var CHANGE_EVENT = 'change';
 var _emotions = {};
 var _selectedID = null;
+var _showLoading = false;
+var _showEmotion = true;
+var _showImages = {
+  showLoading: false,
+  showEmotion: true
+}
 
 var EmotionsStore = assign({}, EventEmitter.prototype, {
   
@@ -340,6 +368,14 @@ var EmotionsStore = assign({}, EventEmitter.prototype, {
     return _selectedID;
   },
 
+  showLoading : function (){
+    return _showLoading;
+  },
+
+  showImages: function (){
+    return _showImages
+  },
+
   getImgSrc: function (){
     url = 'http://emotifaces.herokuapp.com/emotion/';
     if (_emotions[_selectedID]){
@@ -348,6 +384,7 @@ var EmotionsStore = assign({}, EventEmitter.prototype, {
     } else {
       //put default image here
       url = 'img/loading.gif'
+      url= null
     }
     return url;
   },
@@ -387,8 +424,17 @@ EmotionsStore.dispatchToken = AppDispatcher.register(function(payload) {
       // this._selectedID = _emotions[action.id].selected;
       // this._selectedID = action.id
       // console.log('action???', action.id)
+      _showImages.showLoading = true;
+      _showImages.showEmotion = false;
       _selectedID = action.id
       EmotionsStore.emitChange();
+      break
+    case 'HIDE_LOADING':
+      console.log('hidding loading thing')
+      _showImages.showEmotion = true;
+      _showImages.showLoading = false;
+      EmotionsStore.emitChange();
+
       break
   }
   

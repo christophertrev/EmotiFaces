@@ -21,7 +21,7 @@
 
 .emotionImg {
   position: absolute;
-  display: none;
+  display: block;
   height: 500px;
   width: 500px;
 }
@@ -30,6 +30,7 @@
   top: 50%;
   left: 50%;
   display: block;
+  z-index: 10000;
 
 }
 
