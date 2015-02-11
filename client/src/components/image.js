@@ -11,15 +11,16 @@ var EmotionList = React.createClass({
     if(this.props.selectedID){
       imageSRC += this.props.allEmotions[this.props.selectedID].emotion
     } else {
-      imageSRC = 'img/loading.gif'
+      imageSRC = '../img/loading.gif'
     }
-    console.log(imageSRC)
+    //console.log(this.props.im)
+    // console.log(imageSRC)
     return (
       <img
       className = {cx({
         'emotionImg': true
       }) }
-      src= {imageSRC}/>
+      src={this.props.imgSRC}/>
     )
   }
 

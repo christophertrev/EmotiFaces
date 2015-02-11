@@ -41,7 +41,7 @@ var EmotionApp = React.createClass({displayName: "EmotionApp",
     return (
       React.createElement("div", null, 
       React.createElement(EmotionList, {selectedID: this.state.selectedID, allEmotions: this.state.allEmotions}), 
-      React.createElement(EmotionImage, {selectedID: this.state.selectedID, allEmotions: this.state.allEmotions})
+      React.createElement(EmotionImage, {imgSRC: this.state.imgSrc})
       )
     );
   },
@@ -257,15 +257,16 @@ var EmotionList = React.createClass({displayName: "EmotionList",
     if(this.props.selectedID){
       imageSRC += this.props.allEmotions[this.props.selectedID].emotion
     } else {
-      imageSRC = 'img/loading.gif'
+      imageSRC = '../img/loading.gif'
     }
-    console.log(imageSRC)
+    //console.log(this.props.im)
+    // console.log(imageSRC)
     return (
       React.createElement("img", {
       className: cx({
         'emotionImg': true
       }), 
-      src: imageSRC})
+      src: this.props.imgSRC})
     )
   }
 

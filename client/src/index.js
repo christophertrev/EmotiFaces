@@ -40,7 +40,7 @@ var EmotionApp = React.createClass({
     return (
       <div>
       <EmotionList selectedID={this.state.selectedID} allEmotions={this.state.allEmotions} />
-      <EmotionImage selectedID={this.state.selectedID} allEmotions={this.state.allEmotions} />
+      <EmotionImage imgSRC={this.state.imgSrc} />
       </div>
     );
   },
