@@ -1,10 +1,10 @@
 // var assert = require("assert")
-var server = require('../server');
+// var server = require('../server');
 
 
 describe('Array', function(){
   after(function () {
-    server.close();
+    // server.close();
   });
   describe('#indexOf()', function(){
     it('should return -1 when the value is not present', function(){

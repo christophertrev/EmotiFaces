@@ -9,6 +9,7 @@ var gulp = require('./gulp')([
 // var  = require('jshint-stylish');
 var nodemon = require('gulp-nodemon');
 var mocha = require('gulp-mocha');
+var paths = require('./gulp/paths')
 
 // var paths = {
 //   scripts: [
