@@ -11,3 +11,4 @@ emotions.christophertrev.com/emotion
 emotions.christophertrev.com/emotion/[emotionFromListAbove] 
 
 Ex. emotions.christophertrev.com/emotion/happy
+Ex. emotions.christophertrev.com/emotion/sad
