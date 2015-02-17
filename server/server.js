@@ -8,7 +8,9 @@ var morgan = require('morgan');
 app.set('port', (process.env.PORT || 3000));
 
 
-app.use(morgan('dev'));
+app.use(morgan('dev', {
+  skip: function (req, res) { return res.statusCode < 400 }
+}));
 
 app.get('*',function (req, res, next){
   //add header for cors compliencey
