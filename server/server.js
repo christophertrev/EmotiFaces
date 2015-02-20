@@ -5,7 +5,7 @@ var emotionRoutes = require('./routes/emotionRoutes');
 var morgan = require('morgan');
 
 
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 8082));
 
 
 app.use(morgan('dev'));
