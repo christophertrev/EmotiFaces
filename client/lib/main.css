@@ -2613,9 +2613,19 @@ hr {
 }
 .active {
   font-style: italic;
-  font-weight: bold;
+  font-weight: bold #212121;
 }
 .emotionList {
+  float: left;
+  width: 100px;
+  margin-top: 25%;
+  margin-bottom: 25%;
+  margin-right: 5px;
+  list-style-type: none;
+  cursor: pointer;
+  font-family: 'Lato', serif;
+}
+.emotionItem {
   float: left;
   width: 100px;
   margin: 0 0 0 0;
@@ -2625,6 +2635,7 @@ hr {
   font-family: 'Lato', serif;
 }
 .picture {
+  margin-top: 10px;
   float: left;
   display: block;
   height: 500px;
