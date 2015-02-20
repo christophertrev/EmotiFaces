@@ -4,6 +4,7 @@ var gulp = require('./gulp')([
   'lint',
   'mocha',
   'build',
+  'less'
 ]);
 // var jshint = require('gulp-jshint');
 // var  = require('jshint-stylish');
