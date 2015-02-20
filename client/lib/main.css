@@ -2618,6 +2618,9 @@ body {
   font-style: italic;
   font-weight: bold;
 }
+.active .mui-enhanced-button {
+  background-color: #f38800 !important;
+}
 .emotionList {
   float: left;
   width: 100px;
