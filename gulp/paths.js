@@ -1,3 +1,7 @@
+var mui = './node_modules/material-ui/src';
+var client = './client'
+
+
 module.exports = {
   scripts: [
   './server/**/*.js',
@@ -12,7 +16,14 @@ module.exports = {
   client : {
     src: ['./client/src'],
     lib: 'client/lib'
-  }
-
+  },
+  less: {
+    src: client + '/styles/main.less',
+    watch: [
+      client + '/styles/**',
+      mui + '/styles/**'
+    ],
+  dest: 'client/lib'
+  },
 };
 
