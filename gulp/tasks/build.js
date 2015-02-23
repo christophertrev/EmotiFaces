@@ -8,7 +8,7 @@ var paths = require('../paths');
 var uglify = require('gulp-uglify');
 var streamify = require('gulp-streamify');
 
-var bundler = watchify(browserify(paths.client.src + '/index.js', watchify.args));
+var bundler = watchify(browserify(paths.client.src + '/routes.js', watchify.args));
 // add any other browserify options or transforms here
 bundler.transform(reactify)
    // .transform({
@@ -23,7 +23,7 @@ function bundle() {
     // log errors if they happen
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
     .pipe(source('bundle.js'))
-    .pipe(streamify(uglify()))
+    // .pipe(streamify(uglify()))
     .pipe(gulp.dest(paths.client.lib));
 }
 
