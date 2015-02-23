@@ -7,7 +7,8 @@ var Link = Router.Link;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
-var mainApp = require('./mainApp.js')
+var mainApp = require('./mainApp')
+var Pic = require('./components/VideoHTML5')
 
 var App = React.createClass({displayName: "App",
   render: function () {
@@ -23,6 +24,7 @@ var App = React.createClass({displayName: "App",
 
 var routes = (
   React.createElement(Route, {name: "app", path: "/", handler: App}, 
+    React.createElement(Route, {name: "takePic", path: "/pic", handler: Pic}), 
     React.createElement(DefaultRoute, {handler: mainApp})
   )
 );
@@ -31,7 +33,7 @@ Router.run(routes, function (Handler) {
   React.render(React.createElement(Handler, null), document.getElementById('example'));
 });
 
-},{"./mainApp.js":"/Users/christophertrev/hackTime/EmotiFaces/client/src/mainApp.js","react":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react/react.js","react-router":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react-router/modules/index.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/actions/EmotionClientActionCreators.js":[function(require,module,exports){
+},{"./components/VideoHTML5":"/Users/christophertrev/hackTime/EmotiFaces/client/src/components/VideoHTML5.js","./mainApp":"/Users/christophertrev/hackTime/EmotiFaces/client/src/mainApp.js","react":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react/react.js","react-router":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react-router/modules/index.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/actions/EmotionClientActionCreators.js":[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var webAPIUtils = require('../utils/webAPIUtils');
 // var ChatConstants = require('../constants/ChatConstants');
@@ -78,43 +80,98 @@ module.exports = {
 },{"../dispatcher/AppDispatcher":"/Users/christophertrev/hackTime/EmotiFaces/client/src/dispatcher/AppDispatcher.js","../utils/webAPIUtils":"/Users/christophertrev/hackTime/EmotiFaces/client/src/utils/webAPIUtils.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/components/VideoHTML5.js":[function(require,module,exports){
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
+var VideoStore = require('../stores/VideoStore');
 
 // var ENTER_KEY_CODE = 13;
 
+var getVidSrc = function (){
+  return {
+    src: VideoStore.getSrc()
+  };
+}
+
+navigator.getUserMedia  = navigator.getUserMedia ||
+                          navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia ||
+                          navigator.msGetUserMedia;
+    
+var errorCallback = function(){}
+
+
+
 var videoHTML5 = React.createClass({displayName: "videoHTML5",
 
-  // propTypes: {
-  //   className: ReactPropTypes.string,
-  //   id: ReactPropTypes.string,
-  //   placeholder: ReactPropTypes.string,
-  //   onSave: ReactPropTypes.func.isRequired,
-  //   value: ReactPropTypes.string
-  // },
+  componentDidMount: function() {
+    // EmotionStore.addChangeListener(this._onChange);
+    // webAPIUtils.getAllEmotions();
+    var that = this; 
+    if (navigator.getUserMedia) {
+      console.log('runt?')
+      navigator.getUserMedia({ video: true}, function(stream) {
+        console.log('setting streem')
+        // that.forceUpdate();
+        // this.render():
+        that.setState({
+          src: window.URL.createObjectURL(stream)
+        })
+        return obj.src = window.URL.createObjectURL(stream);
+      }, errorCallback);
+    }
+     // else {
+    //  console.log('gettings trem')
+    //   src = 'somevideo.webm'; // fallback.
+    // }
+  },
 
-  // getInitialState: function() {
-  //   if(!this.props.src){
-  //     console.log("no Video Source givin :(");
-  //     console.log(this.props.src || 'video/video.mp4')
-  //   }
-  //   return {
-  //     src: this.props.value || 'video/video.mp4'
-  //   };
-  // },
+
+  componentWillUnmount: function() {
+    // EmotionStore.removeChangeListener(this._onChange);
+  },
+
+
+  getInitialState: function() {
+    // if(!this.props.src){
+    //   console.log("no Video Source givin :(");
+    //   console.log(this.props.src || 'video/video.mp4')
+    // }
+    // return {
+    //   src: this.props.value || 'video/video.mp4'
+    // };
+
+    // navigator.getUserMedia  = navigator.getUserMedia ||
+    //                           navigator.webkitGetUserMedia ||
+    //                           navigator.mozGetUserMedia ||
+    //                           navigator.msGetUserMedia;
+
+    // var src; 
+    // var obj = {};
+    // var errorCallback = function(){}
+    // var that = this;
+    // if (navigator.getUserMedia) {
+    //   console.log('runt?')
+    //   navigator.getUserMedia({audio: true, video: true}, function(stream) {
+    //     console.log('setting streem')
+    //   // that.forceUpdate();
+    //   // this.render():
+    //     return obj.src = window.URL.createObjectURL(stream);
+    //   }, errorCallback);
+    // } else {
+    //   console.log('gettings trem')
+    //   src = 'somevideo.webm'; // fallback.
+    // }
+    // return obj;
+    return getVidSrc();
+  },
 
   /**
    * @return {object}
    */
   render: function() {
-    // console.log(this.props)
-    // var videoLoc = 'video/video.mp4'
-    // var video = document.querySelector('video');
 
-    // navigator.webkitGetUserMedia({audio: true, video: true}, function(stream) {
-    //   video.src = window.URL.createObjectURL(stream);
-    // }, function(){});
+    console.log('src',this.state.src)
     return (
       
-      React.createElement("video", {checked: true, src: this.props.src, controls: true})
+      React.createElement("video", {src: this.state.src, autoPlay: true})
 
     );
   },
@@ -152,7 +209,7 @@ var videoHTML5 = React.createClass({displayName: "videoHTML5",
 
 module.exports = videoHTML5;
 
-},{"react":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react/react.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/components/emotionItem.js":[function(require,module,exports){
+},{"../stores/VideoStore":"/Users/christophertrev/hackTime/EmotiFaces/client/src/stores/VideoStore.js","react":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react/react.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/components/emotionItem.js":[function(require,module,exports){
 var React = require('react');
 var EmotionClientActionCreators = require('../actions/EmotionClientActionCreators');
 var cx = require('react/lib/cx');
@@ -444,6 +501,94 @@ var actionList = {
 // webAPIUtils.getAllEmotions();
 
 module.exports = EmotionsStore;
+
+
+},{"../dispatcher/AppDispatcher":"/Users/christophertrev/hackTime/EmotiFaces/client/src/dispatcher/AppDispatcher.js","events":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/browserify/node_modules/events/events.js","object-assign":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/object-assign/index.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/stores/VideoStore.js":[function(require,module,exports){
+var EventEmitter = require('events').EventEmitter;
+var assign = require('object-assign');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+
+
+
+var CHANGE_EVENT = 'change';
+var _emotions = {};
+var _selectedID = null;
+var _showImages = {
+  showLoading: false,
+  showEmotion: true
+}
+var _imgURL = null;
+
+var _src = null; 
+
+var VideoStore = assign({}, EventEmitter.prototype, {
+  
+  getSrc: function() {
+    return _src;
+  },
+
+  emitChange: function() {
+    this.emit(CHANGE_EVENT);
+  },
+
+  addChangeListener: function(callback) {
+    this.on(CHANGE_EVENT, callback);
+  },
+
+  removeChangeListener: function(callback) {
+    this.removeListener(CHANGE_EVENT, callback);
+  }
+
+});
+
+VideoStore.dispatchToken = AppDispatcher.register(function(payload) {
+  var action = payload.action;
+  actionList[action.type](action)
+  VideoStore.emitChange();
+})
+
+var actionList = {
+  RECEIVE_MESSAGES : function (action){
+    for ( var i  in action.rawMessages){
+      _emotions[i] = {
+        id: i,
+        emotion: action.rawMessages[i]
+      }
+    }
+  },
+  SELECT_EMOTION : function (action){
+    _showImages.showLoading = true;
+    _showImages.showEmotion = false;
+    _selectedID = action.id
+
+    url = 'http://emotifaces.herokuapp.com/emotion/';
+    if (_emotions[_selectedID]){
+      url += _emotions[_selectedID].emotion;
+      url += '?timestamp=' + new Date().getTime();
+    } else {
+      //put default image here
+      // url = 'img/loading.gif'
+      url = null;
+    }
+    _imgURL = url;
+  },
+  HIDE_LOADING : function (action){
+    _showImages.showEmotion = true;
+    _showImages.showLoading = false;
+  },
+  REFRESH_IMAGE : function (action){
+    _showImages.showLoading = true;
+    _showImages.showEmotion = false;
+    //Append one to the timestampe to refresh image
+    _imgURL += 1;
+  }
+
+}
+
+
+// webAPIUtils.getAllEmotions();
+
+module.exports = VideoStore;
 
 
 },{"../dispatcher/AppDispatcher":"/Users/christophertrev/hackTime/EmotiFaces/client/src/dispatcher/AppDispatcher.js","events":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/browserify/node_modules/events/events.js","object-assign":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/object-assign/index.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/utils/webAPIUtils.js":[function(require,module,exports){

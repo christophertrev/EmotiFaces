@@ -1,42 +1,97 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
+var VideoStore = require('../stores/VideoStore');
 
 // var ENTER_KEY_CODE = 13;
 
+var getVidSrc = function (){
+  return {
+    src: VideoStore.getSrc()
+  };
+}
+
+navigator.getUserMedia  = navigator.getUserMedia ||
+                          navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia ||
+                          navigator.msGetUserMedia;
+    
+var errorCallback = function(){}
+
+
+
 var videoHTML5 = React.createClass({
 
-  // propTypes: {
-  //   className: ReactPropTypes.string,
-  //   id: ReactPropTypes.string,
-  //   placeholder: ReactPropTypes.string,
-  //   onSave: ReactPropTypes.func.isRequired,
-  //   value: ReactPropTypes.string
-  // },
+  componentDidMount: function() {
+    // EmotionStore.addChangeListener(this._onChange);
+    // webAPIUtils.getAllEmotions();
+    var that = this; 
+    if (navigator.getUserMedia) {
+      console.log('runt?')
+      navigator.getUserMedia({ video: true}, function(stream) {
+        console.log('setting streem')
+        // that.forceUpdate();
+        // this.render():
+        that.setState({
+          src: window.URL.createObjectURL(stream)
+        })
+        return obj.src = window.URL.createObjectURL(stream);
+      }, errorCallback);
+    }
+     // else {
+    //  console.log('gettings trem')
+    //   src = 'somevideo.webm'; // fallback.
+    // }
+  },
 
-  // getInitialState: function() {
-  //   if(!this.props.src){
-  //     console.log("no Video Source givin :(");
-  //     console.log(this.props.src || 'video/video.mp4')
-  //   }
-  //   return {
-  //     src: this.props.value || 'video/video.mp4'
-  //   };
-  // },
+
+  componentWillUnmount: function() {
+    // EmotionStore.removeChangeListener(this._onChange);
+  },
+
+
+  getInitialState: function() {
+    // if(!this.props.src){
+    //   console.log("no Video Source givin :(");
+    //   console.log(this.props.src || 'video/video.mp4')
+    // }
+    // return {
+    //   src: this.props.value || 'video/video.mp4'
+    // };
+
+    // navigator.getUserMedia  = navigator.getUserMedia ||
+    //                           navigator.webkitGetUserMedia ||
+    //                           navigator.mozGetUserMedia ||
+    //                           navigator.msGetUserMedia;
+
+    // var src; 
+    // var obj = {};
+    // var errorCallback = function(){}
+    // var that = this;
+    // if (navigator.getUserMedia) {
+    //   console.log('runt?')
+    //   navigator.getUserMedia({audio: true, video: true}, function(stream) {
+    //     console.log('setting streem')
+    //   // that.forceUpdate();
+    //   // this.render():
+    //     return obj.src = window.URL.createObjectURL(stream);
+    //   }, errorCallback);
+    // } else {
+    //   console.log('gettings trem')
+    //   src = 'somevideo.webm'; // fallback.
+    // }
+    // return obj;
+    return getVidSrc();
+  },
 
   /**
    * @return {object}
    */
   render: function() {
-    // console.log(this.props)
-    // var videoLoc = 'video/video.mp4'
-    // var video = document.querySelector('video');
 
-    // navigator.webkitGetUserMedia({audio: true, video: true}, function(stream) {
-    //   video.src = window.URL.createObjectURL(stream);
-    // }, function(){});
+    console.log('src',this.state.src)
     return (
       
-      <video checked={true} src={this.props.src} controls/>
+      <video src={this.state.src} autoPlay/>
 
     );
   },

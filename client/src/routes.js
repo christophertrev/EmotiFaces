@@ -6,7 +6,8 @@ var Link = Router.Link;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
-var mainApp = require('./mainApp.js')
+var mainApp = require('./mainApp')
+var Pic = require('./components/VideoHTML5')
 
 var App = React.createClass({
   render: function () {
@@ -22,6 +23,7 @@ var App = React.createClass({
 
 var routes = (
   <Route name="app" path="/" handler={App}>
+    <Route name="takePic" path="/pic" handler={Pic}/>
     <DefaultRoute handler={mainApp}/>
   </Route>
 );
