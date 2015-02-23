@@ -2621,6 +2621,10 @@ body {
 .active .mui-enhanced-button {
   background-color: #f38800 !important;
 }
+.videoFeed {
+  width: 300px;
+  height: 300px;
+}
 .emotionList {
   float: left;
   width: 100px;

@@ -81,6 +81,7 @@ module.exports = {
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var VideoStore = require('../stores/VideoStore');
+var cx = require('react/lib/cx');
 
 // var ENTER_KEY_CODE = 13;
 
@@ -171,7 +172,10 @@ var videoHTML5 = React.createClass({displayName: "videoHTML5",
     console.log('src',this.state.src)
     return (
       
-      React.createElement("video", {src: this.state.src, autoPlay: true})
+      React.createElement("video", {className: cx({
+        'videoFeed': true
+      }), 
+      src: this.state.src, autoPlay: true})
 
     );
   },
@@ -209,7 +213,7 @@ var videoHTML5 = React.createClass({displayName: "videoHTML5",
 
 module.exports = videoHTML5;
 
-},{"../stores/VideoStore":"/Users/christophertrev/hackTime/EmotiFaces/client/src/stores/VideoStore.js","react":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react/react.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/components/emotionItem.js":[function(require,module,exports){
+},{"../stores/VideoStore":"/Users/christophertrev/hackTime/EmotiFaces/client/src/stores/VideoStore.js","react":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react/react.js","react/lib/cx":"/Users/christophertrev/hackTime/EmotiFaces/node_modules/react/lib/cx.js"}],"/Users/christophertrev/hackTime/EmotiFaces/client/src/components/emotionItem.js":[function(require,module,exports){
 var React = require('react');
 var EmotionClientActionCreators = require('../actions/EmotionClientActionCreators');
 var cx = require('react/lib/cx');

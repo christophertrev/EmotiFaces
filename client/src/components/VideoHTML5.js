@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var VideoStore = require('../stores/VideoStore');
+var cx = require('react/lib/cx');
 
 // var ENTER_KEY_CODE = 13;
 
@@ -91,7 +92,10 @@ var videoHTML5 = React.createClass({
     console.log('src',this.state.src)
     return (
       
-      <video src={this.state.src} autoPlay/>
+      <video className = {cx({
+        'videoFeed': true
+      })}
+      src={this.state.src} autoPlay/>
 
     );
   },
