@@ -113,9 +113,11 @@ var videoHTML5 = React.createClass({displayName: "videoHTML5",
         // that.forceUpdate();
         // this.render():
         that.setState({
-          src: window.URL.createObjectURL(stream)
+          src: window.URL.createObjectURL(stream),
+          allowUse: true,
+          localMediaStream : stream
         })
-        return obj.src = window.URL.createObjectURL(stream);
+        // return obj.src = window.URL.createObjectURL(stream);
       }, errorCallback);
     }
      // else {
@@ -131,36 +133,7 @@ var videoHTML5 = React.createClass({displayName: "videoHTML5",
 
 
   getInitialState: function() {
-    // if(!this.props.src){
-    //   console.log("no Video Source givin :(");
-    //   console.log(this.props.src || 'video/video.mp4')
-    // }
-    // return {
-    //   src: this.props.value || 'video/video.mp4'
-    // };
 
-    // navigator.getUserMedia  = navigator.getUserMedia ||
-    //                           navigator.webkitGetUserMedia ||
-    //                           navigator.mozGetUserMedia ||
-    //                           navigator.msGetUserMedia;
-
-    // var src; 
-    // var obj = {};
-    // var errorCallback = function(){}
-    // var that = this;
-    // if (navigator.getUserMedia) {
-    //   console.log('runt?')
-    //   navigator.getUserMedia({audio: true, video: true}, function(stream) {
-    //     console.log('setting streem')
-    //   // that.forceUpdate();
-    //   // this.render():
-    //     return obj.src = window.URL.createObjectURL(stream);
-    //   }, errorCallback);
-    // } else {
-    //   console.log('gettings trem')
-    //   src = 'somevideo.webm'; // fallback.
-    // }
-    // return obj;
     return getVidSrc();
   },
 
@@ -171,14 +144,48 @@ var videoHTML5 = React.createClass({displayName: "videoHTML5",
 
     console.log('src',this.state.src)
     return (
-      
-      React.createElement("video", {className: cx({
-        'videoFeed': true
-      }), 
-      src: this.state.src, autoPlay: true})
+
+      React.createElement("div", {className: cx({'videoContainer':true})}, 
+        
+         this.state.allowUse ?
+        React.createElement("button", {onClick: this._onClick, className: cx({'captureBtn':true})}) : null, 
+        
+        React.createElement("video", {className: cx({
+          'videoFeed': true
+        }), 
+        src: this.state.src, onLoad: this._onLoad, autoPlay: true}), 
+         this.state.hasPic ? 
+          React.createElement("img", {src: this.state.imgSrc})
+          : null
+        
+      )
 
     );
   },
+
+  _onLoad: function (){
+    console.log('aoiamsd')
+  },
+  _onClick: function(){
+    console.log('clicekd')
+    var video = document.querySelector('video');
+    var canvas = document.querySelector('canvas');
+    var ctx = canvas.getContext('2d');
+    // var localMediaStream = null;
+
+    // function snapshot() {
+      if (this.state.localMediaStream) {
+        ctx.drawImage(video, 0, 0);
+        // "image/webp" works in Chrome.
+        // Other browsers will fall back to image/png.
+        console.log("doing stufff")
+        this.setState({
+          imgSrc : canvas.toDataURL('image/webp'),
+          hasPic : true
+        })
+      }
+    // }
+  }
 
   // /*
   //  * Invokes the callback passed in as onSave, allowing this component to be
