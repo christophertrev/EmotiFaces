@@ -47,7 +47,7 @@ var EmotionApp = React.createClass({
   }
 });
 
-module.export = EmotionApp;
+module.exports = EmotionApp;
 
 // React.render(
 //   <EmotionApp date={new Date()} />,

@@ -30,6 +30,15 @@ var paths = require('./gulp/paths')
 //     .pipe(jshint.reporter('jshint-stylish'));
 // });
 
+gulp.task('watch',function(){
+  gulp.watch(paths.less.watch, ['less']);
+
+  // gulp.watch('js/**/*.js', function(event) {
+  //   console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+  // });
+})
+
+
 gulp.task('mon',function (){
   nodemon({ 
     script:'server/server.js',
